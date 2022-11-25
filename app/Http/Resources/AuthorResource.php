@@ -21,6 +21,8 @@ class AuthorResource extends JsonResource
             'created_at' => $this->created_at->format('d.m.Y'),
             'posts_count' => $this->posts->count(),
             'comments_count' => $this->comments->count(),
+            'iconPath' => '/'.$this->icon_path,
+            'description' => $this->description,
         ];
     }
 }

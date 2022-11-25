@@ -21,6 +21,8 @@ class CommentResource extends JsonResource
             'body' => $this->body,
             'created_at' => $this->created_at->format('d.m.Y H:i:s'),
             'updated_at' => $this->updated_at->format('d.m.Y H:i:s'),
+            'iconPath' => '/'.$this->author->icon_path,
+            'authorName' => $this->author->name,
         ];
     }
 }

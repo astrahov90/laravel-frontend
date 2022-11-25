@@ -15,8 +15,36 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('posts');
+})->name('best-posts');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/contacts', function () {
+    return view('contacts');
+})->name('contacts');
+
+Route::get('/newest', function () {
+    return view('posts');
+})->name('newest-posts');
+
+Route::get('/authors/{author_id:id}/posts', function (int $author_id) {
+    return view('authors-posts', compact(['author_id']));
+})->name('authors-posts');
+
+Route::get('/authors', function () {
+    return view('authors');
+})->name('authors');
+
+Route::get('/new-post', function () {
+    return view('new-post');
+})->name('new-post');
+
+Route::get('/posts/{post_id:id}/comments', function (int $post_id) {
+    return view('comments',compact(['post_id']));
+})->name('comments');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

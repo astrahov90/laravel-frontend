@@ -1,3 +1,25 @@
+import $ from 'jquery';
+window.$ = $;
+
+import {validate} from 'jquery-validation';
+
+import * as commonLogic from './commonLogic';
+window.scrollIntoViewIfNeeded = commonLogic.scrollIntoViewIfNeeded;
+window.bbCodeDecode = commonLogic.bbCodeDecode;
+window.onscroll = function() {commonLogic.scrollFunction()};
+$('#toTopBtn').click(()=>commonLogic.topFunction());
+
+import * as postsLogic from './postsLogic';
+window.loadPostsData = postsLogic.loadPostsData;
+window.ratePost = postsLogic.ratePost;
+window.loadPostInfo = postsLogic.loadPostInfo;
+window.loadCommentsData = postsLogic.loadCommentsData;
+window.loadAuthorsPostsData = postsLogic.loadAuthorsPostsData;
+
+import * as authorsLogic from './authorsLogic';
+window.loadAuthorInfo = authorsLogic.loadAuthorInfo;
+window.loadAuthorsListData = authorsLogic.loadAuthorsListData;
+
 import _ from 'lodash';
 window._ = _;
 
@@ -8,9 +30,11 @@ window._ = _;
  */
 
 import axios from 'axios';
+import {loadAuthorsPostsData} from "./postsLogic";
 window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.withCredentials = true;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -32,3 +56,4 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
 // });
+

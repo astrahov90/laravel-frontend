@@ -16,7 +16,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth.basic.once', array('except' => array('index', 'show', 'rating')));
+        $this->middleware('auth:sanctum', array('except' => array('index', 'show', 'rating')));
     }
 
     /**
@@ -27,6 +27,10 @@ class PostController extends Controller
      */
     public function index(Request $request) : PostCollection
     {
+        $newest = $request->query->has('newest');
+
+        $author_id = $request->query->get('authorId',false);
+
         $perPage = (new Post)->getPerPage();
         $currentPage = 1;
         if ($request->query->has('offset'))
@@ -35,7 +39,18 @@ class PostController extends Controller
         }
         $request->query->add(['page'=>$currentPage]);
 
-        return new PostCollection(Post::paginate());
+        if ($newest)
+            $data = Post::query()->latest()->paginate();
+        else if ($author_id)
+            $data = Post::whereAuthorId($author_id)->paginate();
+        else
+        {
+            $data = Post::query()->withAggregate('rating','rating','sum')
+                ->orderByDesc('rating_sum_rating')
+                ->paginate();
+        }
+
+        return new PostCollection($data);
     }
 
     /**
