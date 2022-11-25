@@ -13,7 +13,7 @@ class CommentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth.basic.once', array('except' => array('index', 'show')));
+        $this->middleware('auth:sanctum', array('except' => array('index', 'show')));
     }
 
     /**

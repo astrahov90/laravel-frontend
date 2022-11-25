@@ -49,6 +49,11 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function author()
+    {
+        return $this->hasOne(User::class,'id','author_id');
+    }
+
     public function rating()
     {
         return $this->hasMany(PostLikes::class);

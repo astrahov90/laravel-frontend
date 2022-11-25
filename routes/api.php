@@ -17,10 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::middleware('auth.basic.once')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
-
 Route::get('authors/me', [UserController::class, 'me']);
 Route::apiResource('authors', UserController::class)
     ->only(['index','show'])
